@@ -75,12 +75,12 @@ please refer rules.json.example for learn how write rules
 
 ### Run email fetching script
 ```
-python3 email_fetcher.py
+poetry run python3 email_fetcher.py
 ```
 
 ### Run email processor script
 ```
-python3 process_email.py
+poetry run python3 process_email.py
 ```
 
 

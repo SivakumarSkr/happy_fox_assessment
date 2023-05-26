@@ -1,5 +1,5 @@
 {
-    "predicate1": "any",
+    "predicate": "any",
     "rules": [
         {"field_name": "received_date", "predicate": "less_than", "value": "2 days old"},
         {"field_name": "subject", "predicate": "contains", "value": "Account"}

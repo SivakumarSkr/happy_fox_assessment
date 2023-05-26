@@ -22,6 +22,8 @@ def convert_to_date(field_value):
 
 class BaseClass:
     
+    SCOPES = ['https://www.googleapis.com/auth/gmail.readonly',
+               'https://www.googleapis.com/auth/gmail.labels']
     def __init__(self):
         self.db_connection = self.get_db_connection()
         self.table_name = os.getenv('GMAIL_TABLE_NAME')

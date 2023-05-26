@@ -1,0 +1,14 @@
+{
+    "predicate1": "any/all",
+    "rules": [
+        {"field_name": "received_date", "predicate": "less_than", "value": "2 days old"},
+        {"field_name": "received_date", "predicate": "greater_than", "value": "2 months old"},
+        {"field_name": "subject", "predicate": "contains", "value": "Account"}
+        {"field_name": "from_email", "predicate": "not_contains", "value": "Account"}
+        {"field_name": "message", "predicate": "not_contains", "value": "Account"}
+    ],
+    "actions": [
+        {"name": "mark_as_read/mark_as_unread"},
+        {"name": "move", "destination": "IMPORTANT"}
+    ]
+}

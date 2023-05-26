@@ -12,8 +12,6 @@ load_dotenv()
 class EmailFetcher(BaseClass):
     """Class for fetching emails from gmail and store in database"""
 
-    # This class only needs readonly permission
-    SCOPES = ['https://www.googleapis.com/auth/gmail.readonly']
     # order of fields needed while inserting
     FIELD_ORDER = ('email_id', 'subject', 'from_email', 'received_date', 'message')
 
@@ -35,7 +33,7 @@ class EmailFetcher(BaseClass):
         return messages
 
     def create_table_if_not_present(self):
-        """create table for store emails if not present."""
+        """Create table for store emails if not present."""
         try:
             create_table_query = f"""
                 CREATE TABLE IF NOT EXISTS {self.table_name} (
@@ -54,7 +52,7 @@ class EmailFetcher(BaseClass):
             raise Exception("Error from database while creating the table")
 
     def get_value_from_header(self, headers, key):
-        """return value from headers"""
+        """Return value from headers"""
         for header in headers:
             if header['name'] == key:
                 return header['value']
@@ -62,7 +60,7 @@ class EmailFetcher(BaseClass):
             return ""
 
     def get_emails_content(self, payload):
-        """read and decode email content"""
+        """Read and decode email content"""
         if 'parts' in payload:
             for part in payload['parts']:
                 if part['mimeType'] == 'text/plain':
@@ -71,7 +69,7 @@ class EmailFetcher(BaseClass):
         return ''
 
     def populate_email(self, message):
-        """create a tuple of a email with required data by calling gmail api"""
+        """Create a tuple of a email with required data by calling gmail api"""
         try:
             msg = self.service.users().messages().get(userId='me', id=message['id']).execute()
             return (
@@ -88,7 +86,7 @@ class EmailFetcher(BaseClass):
             print(f'Error occurred while populating the email {e}')
     
     def insert_bulk_to_db(self, emails):
-        """bulk inserting populated emails to db."""
+        """Bulk inserting populated emails to db."""
         try:
             cursor = self.db_connection.cursor()
             arg_string = f'({",".join(["%s"] * len(self.FIELD_ORDER))})'

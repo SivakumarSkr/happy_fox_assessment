@@ -27,7 +27,7 @@ class Rule:
             raise Exception(f"{e.args} is not present in rules")
     
     def get_type(self, predicate):
-        """evaluate type of predicate and assign available conditions"""
+        """Evaluate type of predicate and assign available conditions"""
         type_of_data = {}
         if self.STRING_RULES_CONDITIONS.get(predicate, None):
             type_of_data = self.STRING_RULES_CONDITIONS
@@ -36,7 +36,7 @@ class Rule:
         return type_of_data
 
     def verify(self, email_data):
-        """applying rule by calling respective functions."""
+        """Applying rule by calling respective functions."""
         value_from_email = email_data.get(self.field_name)
         try:
             return self.available_conditions[self.predicate](self.value, value_from_email)

@@ -1,6 +1,5 @@
 import psycopg2
 import psycopg2.extras
-import os
 import json
 from rule_collection import RuleCollection
 from googleapiclient.errors import HttpError
@@ -10,10 +9,9 @@ from utils import BaseClass
 class EmailProcessor(BaseClass):
     """Class for loading emails from database and apply rules for actions"""
     RULE_FILE_NAME = "rule.json"
-    SCOPES = ['https://www.googleapis.com/auth/gmail.labels']
 
     def read_emails_from_db(self):
-        """read emails from database."""
+        """Read emails from database."""
         emails = []
         try:
             self.db_connection.autocommit = True
@@ -31,15 +29,17 @@ class EmailProcessor(BaseClass):
         return emails
 
     def serialize_rule_set(self):
+        """Read rule file and serialize it"""
         try:
             with open(self.RULE_FILE_NAME) as f:
                 rules = json.load(f)
             return RuleCollection(rules)
         except FileNotFoundError as e:
             raise Exception(f"{self.RULE_FILE_NAME} not found in the directory")
-            
 
     def add_or_remove_labels(self, message_ids, params):
+        """By using gmail API's label update feature
+        """
         try:
             return self.service.users().messages().batchModify(
                 userId='me',
@@ -53,8 +53,8 @@ class EmailProcessor(BaseClass):
 
     
     def apply_actions(self, email_ids, rule_set):
-        """applying actions specified in rules to selected emails
-        Not implemented correctly. Violates open-closed priciples. Need update here.
+        """"Applying actions specified in rules to selected emails. 
+        This implementation does not adhere to the open-closed principle and requires an update."
         """
         actions = rule_set.actions
         params = {
@@ -74,6 +74,7 @@ class EmailProcessor(BaseClass):
         self.add_or_remove_labels(email_ids, params)
 
     def apply_rules(self):
+        """main method of class"""
         emails = self.read_emails_from_db()
         rule_set = self.serialize_rule_set()
         emails_to_apply = list(filter(lambda x: rule_set.verify(x), emails))

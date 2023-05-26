@@ -1,0 +1,12 @@
+{
+    "predicate1": "any",
+    "rules": [
+        {"field_name": "received_date", "predicate": "less_than", "value": "2 days old"},
+        {"field_name": "subject", "predicate": "contains", "value": "Account"}
+    ],
+    "actions": [
+        {"name": "mark_as_read"},
+        {"name": "move", "destination": "IMPORTANT"}
+    ]
+
+}

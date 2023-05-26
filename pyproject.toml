@@ -1,0 +1,22 @@
+[tool.poetry]
+name = "happy-fox-assessment"
+version = "0.1.0"
+description = ""
+authors = ["sivakumarskr <sivakumar28skr@gmail.com>"]
+readme = "README.md"
+packages = [{include = "happy_fox_assessment"}]
+
+[tool.poetry.dependencies]
+python = "^3.8"
+google-api-python-client = "^2.86.0"
+psycopg2 = "^2.9.6"
+psycopg2-binary = "^2.9.6"
+google-auth-httplib2 = "^0.1.0"
+google-auth-oauthlib = "^1.0.0"
+python-dotenv = "^1.0.0"
+python-dateutil = "^2.8.2"
+
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"

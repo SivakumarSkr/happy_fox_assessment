@@ -69,7 +69,11 @@ class EmailFetcher(BaseClass):
         return ''
 
     def populate_email(self, message):
-        """Create a tuple of a email with required data by calling gmail api"""
+        """Create a tuple of a email with required data by calling gmail api
+        This is not efficient. Each call in for loop is not good idea. need to batch 
+        the requests.
+        https://stackoverflow.com/questions/67658283/how-do-i-send-a-batch-request-to-the-gmail-api-in-python
+        """
         try:
             msg = self.service.users().messages().get(userId='me', id=message['id']).execute()
             return (

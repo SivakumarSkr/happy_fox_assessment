@@ -68,6 +68,8 @@ Open the .env file and update the database connection details with your Postgres
 
 * Rename the JSON file to `credentials.json` and move it to the project's root directory.
 
+## rules
+please refer rules.json.example for learn how write rules
 
 ## Usage
 
